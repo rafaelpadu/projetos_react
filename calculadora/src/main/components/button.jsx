@@ -11,6 +11,6 @@ export default (props) => (
         ${props.triple ? "triple" : ""}
         `}
   >
-    {props.label}
+    <strong>{props.label}</strong>
   </button>
 );
