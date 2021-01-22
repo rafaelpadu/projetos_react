@@ -68,6 +68,9 @@ export default class Calculator extends Component {
     const values = [...this.state.values];
     const polo = this.state.polo;
     let displayValue = this.state.displayValue;
+    if(displayValue === '0'){
+      return
+    }
     values[i] *= -1;
     displayValue = values[i]
     this.setState({
@@ -81,7 +84,7 @@ export default class Calculator extends Component {
       return;
     }
     const clearDisplay = //se o 0 estiver no display, apertar 0 novamente não vai fazer nada pois a constante clearDisplay vai ser verdadeira
-      this.state.displayValue === "0" || this.state.clearDisplay;
+      this.state.displayValue === "0" || this.state.clearDisplay
     const currentValue = clearDisplay ? "" : this.state.displayValue; // se a constante clear for verdadeira não ira fazer nada, caso contrário o valor atual recebe o valor do display value
     const displayValue = currentValue + n; // o display value recebe a concatenação do currentValue com o n que foi digitado no momento
     this.setState({ displayValue, clearDisplay: false }); //o displayValue vai mudar com o apertar das teclas
