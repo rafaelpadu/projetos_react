@@ -9,6 +9,7 @@ const initialState = {
   operation: null,
   values: [0, 0],
   current: 0,
+  polo: false
 };
 
 export default class Calculator extends Component {
@@ -20,6 +21,7 @@ export default class Calculator extends Component {
     this.clearMemory = this.clearMemory.bind(this);
     this.setOperation = this.setOperation.bind(this);
     this.addDigit = this.addDigit.bind(this);
+    this.invertPolo = this.invertPolo.bind(this);
   }
   clearMemory() {
     // recebe a constante incial para zerar todos os valores
@@ -33,20 +35,46 @@ export default class Calculator extends Component {
       const currentOperation = this.state.operation;
       const values = [...this.state.values];
       try {
-        values[0] = eval(` ${values[0]} ${currentOperation} ${values[1]}`);
+        switch (currentOperation) {
+          case "+":
+            values[0] = values[0] + values[1];
+            break;
+          case "-":
+            values[0] = values[0] - values[1];
+            break;
+          case "x":
+            values[0] = values[0] * values[1];
+            break;
+          case "÷":
+            values[0] = values[0] / values[1];
+            break;
+        }
       } catch {
         values[0] = this.state.values[0];
       }
       values[1] = 0;
-
+      console.log(values)
       this.setState({
         displayValue: values[0],
         operation: equals ? null : operation,
         current: equals ? 0 : 1,
         clearDisplay: !equals,
-        values
+        values,
       });
     }
+  }
+  invertPolo(){
+    const i = this.state.current;
+    const values = [...this.state.values];
+    const polo = this.state.polo;
+    let displayValue = this.state.displayValue;
+    values[i] *= -1;
+    displayValue = values[i]
+    this.setState({
+      values,
+      polo: polo ? false :true,
+      displayValue
+    })
   }
   addDigit(n) {
     if (n === "." && this.state.displayValue.includes(".")) {
@@ -64,7 +92,6 @@ export default class Calculator extends Component {
       const values = [...this.state.values]; // os valores desse escopo irão receber os values do initialState
       values[i] = newValue; //o valor que está sendo acessado no momento irá receber o valor do display
       this.setState({ values }); //os values serão alterados conforme os botões da calculadora vão sendo clicados
-      console.log(values);
     }
   }
 
@@ -72,12 +99,13 @@ export default class Calculator extends Component {
     return (
       <div className="calculator">
         <Display value={this.state.displayValue} />
-        <Button label="AC" click={this.clearMemory} triple />
-        <Button label="/" click={this.setOperation} operation />
+        <Button label="AC" click={this.clearMemory} double />
+        <Button label='+/-' click={this.invertPolo}/>
+        <Button label="÷" click={this.setOperation} operation />
         <Button label="7" click={this.addDigit} />
         <Button label="8" click={this.addDigit} />
         <Button label="9" click={this.addDigit} />
-        <Button label="*" click={this.setOperation} operation />
+        <Button label="x" click={this.setOperation} operation />
         <Button label="4" click={this.addDigit} />
         <Button label="5" click={this.addDigit} />
         <Button label="6" click={this.addDigit} />
