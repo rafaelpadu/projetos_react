@@ -1,0 +1,49 @@
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.card .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card .header .title {
+  padding: 5px;
+  flex: 1;
+}
+.card .content {
+  padding: 20px;
+}
+.card.red .header {
+  color: #fff;
+  background-color: #c62826;
+}
+.card.red .content {
+  background-color: #f44336;
+}
+.card.green .header {
+  color: #fff;
+  background-color: #2e7d32;
+}
+.card.green .content {
+  background-color: #4caf50;
+}
+.card.blue .header {
+  color: #fff;
+  background-color: #1565c0;
+}
+.card.blue .content {
+  background-color: #2196f3;
+}
+.card.purple .header {
+  color: #fff;
+  background-color: #6a1b6a;
+}
+.card.purple .content {
+  background-color: #9c27b0;
+}
+
+/* Jutify-Content controla sempre o main axis, Align-items controla o cross-axis SEMPRE!!!!!!! */

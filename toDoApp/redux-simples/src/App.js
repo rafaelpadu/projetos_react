@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import "./App.css";
+import Interval from "./components/interval";
+import Soma from "./components/soma";
+import Sorteio from "./components/sorteio";
+import Media from "./components/media";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Exercicio React-Redux</h1>
+      <div className="linha">
+        <Interval></Interval>
+      </div>
+      <div className="linha">
+        <Soma />
+        <Media />
+        <Sorteio />
+      </div>
     </div>
   );
 }
