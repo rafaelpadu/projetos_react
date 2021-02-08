@@ -1,0 +1,21 @@
+.drawerHeader{
+    background-color: blue
+}
+.titulo{
+    margin-right: 120px
+}
+.footerContainer{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    padding-right: 8px;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #4791db;
+
+}
+.content-header{
+    display:flex;
+}
