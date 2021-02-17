@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import '../dashboard/dashboard.css'
 import ContentHeader from '../commom/template/contentHeader'
 import Tabelas from '../commom/tab/tabs'
@@ -7,25 +7,27 @@ import CycleList from './billingCycleList';
 import CycleForm from './billingCycleForm'
 
 import {create, remove, update, init} from './billingCycleActions';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-class BillingCycles extends Component {
-    componentWillMount(){
-        this.props.init()
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+const BillingCycles = () => {
+    const dispatch = useDispatch();
+    const header = useSelector(state => state.header)
+    function componentWillMount(){
+        dispatch(init())
     }
-    render(){
-        return (
-            <div className="dashBoard">
-                <ContentHeader title="Ciclos de Pagamentos" small="Cadastro"/>
-                <Tabelas 
-                lista={<CycleList/>}
-                formAdd={<CycleForm onSubmit={this.props.create} buttonName="Incluir"/>}
-                formUpdate={<CycleForm onSubmit={this.props.update} buttonName="Alterar"/>}
-                formDelete={<CycleForm onSubmit={this.props.remove} readOnly={true} buttonName="Excluir"/>}
-                /> 
-            </div>
-        )
-    }
+    componentWillMount()
+    return (
+        <div className={header.open ? "dashBoardOpen" : "dashBoardClosed"}>
+            <ContentHeader title="Ciclos de Pagamentos" small="Cadastro"/>
+            <Tabelas 
+            lista={<CycleList/>}
+            formAdd={<CycleForm onSubmit={dispatch(create)} buttonName="Incluir"/>}
+            formUpdate={<CycleForm onSubmit={dispatch(update)} buttonName="Alterar"/>}
+            formDelete={<CycleForm onSubmit={dispatch(remove)} readOnly={true} buttonName="Excluir"/>}
+            /> 
+        </div>
+    )
 }
-const mapDispatchToProps = dispatch => bindActionCreators({create, remove, update, init}, dispatch)
-export default connect(null,mapDispatchToProps)(BillingCycles)
+
+export default BillingCycles

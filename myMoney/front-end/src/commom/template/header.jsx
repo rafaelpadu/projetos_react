@@ -9,6 +9,9 @@ import SideBar from './sidebar'
 import "./custom.css";
 import clsx  from 'clsx';
 
+import {useSelector, useDispatch} from 'react-redux'
+
+import { toggleSideBar} from './headerActions';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -40,30 +43,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Header = (props) => {
+  const header = useSelector(state => state.header);
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const toggle = () => dispatch(toggleSideBar())
   return (
     <div>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: header.open,
         })}
         color="primary"
       >
         <Toolbar>
           <IconButton
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton,  header.open && classes.hide)}
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={toggle}
           >
             <MenuIcon />
           </IconButton>
@@ -73,8 +72,9 @@ const Header = (props) => {
           <i className="fa fa-money fa-lg" aria-hidden="true"></i>
         </Toolbar>
       </AppBar>
-      <SideBar open={open} onClick={handleDrawerClose}/>
+      <SideBar open={ header.open} onClick={toggle}/>
     </div>
   );
 };
-export default Header;
+
+export default Header
