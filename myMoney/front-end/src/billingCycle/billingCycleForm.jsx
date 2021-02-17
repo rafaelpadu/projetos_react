@@ -17,6 +17,7 @@ class BillingCycleForm extends Component {
       sumOfDebts: this.props.debts.map(d => +d.value || 0).reduce(sum,0) 
     }
   }
+  
   render() {
     const {handleSubmit, readOnly, credits, debts} = this.props
     const {sumOfCredits, sumOfDebts}= this.calculateSummary()

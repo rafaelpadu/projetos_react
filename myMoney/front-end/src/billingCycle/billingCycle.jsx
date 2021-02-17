@@ -14,7 +14,7 @@ const BillingCycles = () => {
     const dispatch = useDispatch();
     const header = useSelector(state => state.header)
     function componentWillMount(){
-        dispatch(init())
+        init()
     }
     componentWillMount()
     return (
